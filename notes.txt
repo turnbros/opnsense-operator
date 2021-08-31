@@ -1,0 +1,3 @@
+https://sdk.operatorframework.io/docs/building-operators/ansible/quickstart/
+
+make bundle IMG="ghcr.io/turnbros/opnsense-operator/opnsense-operator:v0.0.1"
