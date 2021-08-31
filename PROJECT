@@ -1,0 +1,16 @@
+domain: turnbros.app
+layout:
+- ansible.sdk.operatorframework.io/v1
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: opnsense-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: turnbros.app
+  group: opnsense
+  kind: FirewallAlias
+  version: v1alpha1
+version: "3"

@@ -1,0 +1,7 @@
+apiVersion: opnsense.turnbros.app/v1alpha1
+kind: FirewallAlias
+metadata:
+  name: firewallalias-sample
+spec:
+  # Add fields here
+  foo: bar
