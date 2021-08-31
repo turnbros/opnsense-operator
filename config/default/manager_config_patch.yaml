@@ -6,6 +6,8 @@ metadata:
 spec:
   template:
     spec:
+      securityContext:
+        runAsNonRoot: false
       containers:
       - name: manager
         args:
