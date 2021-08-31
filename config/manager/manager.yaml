@@ -29,6 +29,7 @@ spec:
         - --leader-elect
         - --leader-election-id=opnsense-operator
         image: controller:latest
+        imagePullPolicy: Always
         name: manager
         env:
         - name: ANSIBLE_GATHERING
