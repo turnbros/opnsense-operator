@@ -1,2 +1,34 @@
 ---
+
+
 # tasks file for FirewallAlias
+
+# name:         parent
+# description:  UIID of other alias who will contain this alias (nested)
+# optional:     true
+# default:      null
+
+# name:         enabled
+# description:  State of the alias
+# optional:     true
+# default:      true
+
+# name:         name
+# description:  Name of the alias
+# optional:     false
+
+# name:         type
+# description:  Type of the alias
+# optional:     false
+
+# name:         description
+# description:  Description of the alias
+# optional:     true
+# default:      ""
+
+# name:         content
+# description:  The content of this alias (IP, Cidr, url, ...)
+# optional:     true
+# default:      []
+
+
