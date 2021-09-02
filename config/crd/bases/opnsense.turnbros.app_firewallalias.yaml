@@ -34,12 +34,6 @@ spec:
             type: object
             x-kubernetes-preserve-unknown-fields: true
             properties:
-              parent:
-                type: string
-                description: Name of other alias who will contain this alias (nested)
-              name:
-                type: string
-                description: Name of the alias
               description:
                 type: string
                 description: Description of the alias
@@ -54,6 +48,9 @@ spec:
                   items:
                     type: string
                 description: The content of this alias (IP, Cidr, url, ...)
+              state:
+                type: string
+                description: Should this alias be present or absent
           status:
             description: Status defines the observed state of FirewallAlias
             type: object
@@ -63,33 +60,3 @@ spec:
     storage: true
     subresources:
       status: {}
-
-# tasks file for FirewallAlias
-
-# name:         parent
-# description:  UIID of other alias who will contain this alias (nested)
-# optional:     true
-# default:      null
-
-# name:         enabled
-# description:  State of the alias
-# optional:     true
-# default:      true
-
-# name:         name
-# description:  Name of the alias
-# optional:     false
-
-# name:         type
-# description:  Type of the alias
-# optional:     false
-
-# name:         description
-# description:  Description of the alias
-# optional:     true
-# default:      ""
-
-# name:         content
-# description:  The content of this alias (IP, Cidr, url, ...)
-# optional:     true
-# default:      []

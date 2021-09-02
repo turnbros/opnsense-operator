@@ -4,3 +4,5 @@ collections:
     version: "1.2.1"
   - name: operator_sdk.util
     version: "0.2.0"
+  - name: dylanturn.opnsense
+    version: "1.0.0"
