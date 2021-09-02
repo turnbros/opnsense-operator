@@ -34,6 +34,14 @@ spec:
             type: object
             x-kubernetes-preserve-unknown-fields: true
             properties:
+              api_key:
+                type: string
+              api_secret:
+                type: string
+              api_host:
+                type: string
+              api_ca_path:
+                type: string
               description:
                 type: string
                 description: Description of the alias
@@ -45,8 +53,8 @@ spec:
                 description: State of the alias
               content:
                 type: array
-                  items:
-                    type: string
+                items:
+                  type: string
                 description: The content of this alias (IP, Cidr, url, ...)
               state:
                 type: string

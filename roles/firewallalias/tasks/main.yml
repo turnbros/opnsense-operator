@@ -1,10 +1,10 @@
 ---
 
 - firewall_alias:
-    api_key: my_opnsense_api_key
-    api_secret: my_opnsense_api_secret
-    api_host: my_opnsense_device_ip_or_host
-    api_ca_path: /path/to/opnsense/ca/cert_bundle.pem
+    api_key: "{{ api_key }}"
+    api_secret: "{{ api_secret }}"
+    api_host: "{{ api_host }}"
+    api_ca_path: "{{ api_ca_path }}"
     name: "{{ ansible_operator_meta.name }}"
     description: "{{ description }}"
     type: "{{ port }}"
