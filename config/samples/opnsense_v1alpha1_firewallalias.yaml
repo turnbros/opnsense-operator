@@ -1,7 +1,13 @@
 apiVersion: opnsense.turnbros.app/v1alpha1
 kind: FirewallAlias
 metadata:
-  name: firewallalias-sample
+  name: firewallalias-sample-new
 spec:
-  # Add fields here
-  foo: bar
+  api_secret_name: opnsense-device-secret
+  api_secret_namespace: default
+  description: My second operator alias
+  type: port
+  enabled: true
+  content:
+    - "42"
+  state: present

@@ -1,13 +1,20 @@
 ---
 
-- firewall_alias:
-    api_key: "{{ api_key }}"
-    api_secret: "{{ api_secret }}"
-    api_host: "{{ api_host }}"
-    api_ca_path: "{{ api_ca_path }}"
-    name: "{{ ansible_operator_meta.name }}"
+- name: Fetch the secret used to connect to the Opnsense device
+  set_fact:
+    device_secret: "{{ lookup('community.kubernetes.k8s', kind='secret', namespace=api_secret_namespace, resource_name=api_secret_name) }}"
+
+- name: Configure the alias on the Opnsense device
+  dylanturn.opnsense.firewall_alias:
+    api_key: "{{ device_secret.data.api_key | b64decode }}"
+    api_secret: "{{ device_secret.data.api_secret | b64decode }}"
+    api_scheme: "{{ device_secret.data.api_scheme | b64decode }}"
+    api_host: "{{ device_secret.data.api_host | b64decode }}"
+    api_port: "{{ device_secret.data.api_port | b64decode | int }}"
+    api_ca_content: "{{ device_secret.data.api_ca_content | b64decode }}"
+    name: "{{ ansible_operator_meta.name | replace('-','_') }}"
     description: "{{ description }}"
-    type: "{{ port }}"
+    type: "{{ type }}"
     content: "{{ content }}"
-    enabled: "{{ true }}"
+    enabled: "{{ enabled }}"
     state: "{{ state }}"

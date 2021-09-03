@@ -34,14 +34,12 @@ spec:
             type: object
             x-kubernetes-preserve-unknown-fields: true
             properties:
-              api_key:
+              api_secret_name:
                 type: string
-              api_secret:
+                description: The name of the secret that will contains the opnsense api key/secret/host/etc config
+              api_secret_namespace:
                 type: string
-              api_host:
-                type: string
-              api_ca_path:
-                type: string
+                description: The namespace the opnsense api secret resides in
               description:
                 type: string
                 description: Description of the alias
@@ -51,14 +49,17 @@ spec:
               enabled:
                 type: boolean
                 description: State of the alias
+                default: true
               content:
                 type: array
                 items:
                   type: string
                 description: The content of this alias (IP, Cidr, url, ...)
+                default: []
               state:
                 type: string
                 description: Should this alias be present or absent
+                default: present
           status:
             description: Status defines the observed state of FirewallAlias
             type: object
