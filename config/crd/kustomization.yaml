@@ -3,4 +3,6 @@
 # It should be run by config/default
 resources:
 - bases/opnsense.turnbros.app_firewallalias.yaml
+- bases/opnsense.turnbros.app_firewallfilters.yaml
+- bases/opnsense.turnbros.app_clusternodealias.yaml
 #+kubebuilder:scaffold:crdkustomizeresource

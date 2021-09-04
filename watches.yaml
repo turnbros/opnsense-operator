@@ -4,4 +4,12 @@
   group: opnsense.turnbros.app
   kind: FirewallAlias
   role: firewallalias
+- version: v1alpha1
+  group: opnsense.turnbros.app
+  kind: FirewallFilter
+  role: firewallfilter
+- version: v1alpha1
+  group: opnsense.turnbros.app
+  kind: ClusterNodeAlias
+  role: clusternodealias
 #+kubebuilder:scaffold:watch

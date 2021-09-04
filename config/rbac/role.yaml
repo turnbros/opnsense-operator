@@ -54,4 +54,38 @@ rules:
       - patch
       - update
       - watch
+  ##
+  ## Rules for opnsense.turnbros.app/v1alpha1, Kind: FirewallFilter
+  ##
+  - apiGroups:
+      - opnsense.turnbros.app
+    resources:
+      - firewallfilters
+      - firewallfilters/status
+      - firewallfilters/finalizers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  ##
+  ## Rules for opnsense.turnbros.app/v1alpha1, Kind: ClusterNodeAlias
+  ##
+  - apiGroups:
+      - opnsense.turnbros.app
+    resources:
+      - clusternodealias
+      - clusternodealias/status
+      - clusternodealias/finalizers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
 #+kubebuilder:scaffold:rules

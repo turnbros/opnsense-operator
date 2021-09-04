@@ -1,4 +1,6 @@
 ## Append samples you want in your CSV to this file as resources ##
 resources:
 - opnsense_v1alpha1_firewallalias.yaml
+- opnsense_v1alpha1_firewallfilter.yaml
+- opnsense_v1alpha1_clusternodealias.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

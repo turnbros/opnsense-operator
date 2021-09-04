@@ -13,4 +13,18 @@ resources:
   group: opnsense
   kind: FirewallAlias
   version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: turnbros.app
+  group: opnsense
+  kind: FirewallFilter
+  version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: turnbros.app
+  group: opnsense
+  kind: ClusterNodeAlias
+  version: v1alpha1
 version: "3"
