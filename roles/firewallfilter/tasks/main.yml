@@ -1,10 +1,19 @@
 ---
 
-- name: Fetch the secret used to connect to the Opnsense device
-  set_fact:
-    device_secret: "{{ lookup('community.kubernetes.k8s', kind='secret', namespace=api_secret_namespace, resource_name=api_secret_name) }}"
+- name: Expose a matched service port
+  when: vars.__service
+  import_tasks: expose-service.yml
 
-- name: Configure the firewall filter
+- name: Fetch the secret used to connect to the Opnsense device
+  when: ports is not defined
+  vars:
+    name: "{{ api_secret_name }}"
+    namespace: "{{ api_secret_namespace | default(ansible_operator_meta.namespace) }}"
+  set_fact:
+    device_secret: "{{ lookup('community.kubernetes.k8s', kind='secret', namespace=namespace, resource_name=name) }}"
+
+- name: Configure the firewall filter spec from a FirewallFilter resource
+  when: ports is not defined
   dylanturn.opnsense.firewall_filter:
     api_key: "{{ device_secret.data.api_key | b64decode }}"
     api_secret: "{{ device_secret.data.api_secret | b64decode }}"
@@ -12,14 +21,14 @@
     api_host: "{{ device_secret.data.api_host | b64decode }}"
     api_port: "{{ device_secret.data.api_port | b64decode | int }}"
     api_ca_content: "{{ device_secret.data.api_ca_content | b64decode }}"
-    description: "{{ ansible_operator_meta.name | replace('-','_') }}"
+    description: "{{ svc.{{ ansible_operator_meta.namespace }}.{{ ansible_operator_meta.name }}.{{ destination_port }} | default('0') }}"
     action: "{{ action | default(omit) }}"
     direction: "{{ direction | default(omit) }}"
     interface: "{{ interface | default(omit) }}"
     protocol: "{{ protocol | default(omit) }}"
     source_net: "{{ source_net | default(omit) }}"
     source_port: "{{ source_port | default(omit) }}"
-    destination_net: "{{ destination_net | default(omit) }}"
+    destination_net: "{{ destination_net | replace('-','_') | default(omit) }}"
     destination_port: "{{ destination_port | default(omit) }}"
     enabled: "{{ enabled | default(omit) }}"
     state: "{{ state | default(omit) }}"

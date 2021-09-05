@@ -1,8 +1,11 @@
 ---
 
 - name: Fetch the secret used to connect to the Opnsense device
+  vars:
+    name: "{{ api_secret_name }}"
+    namespace: "{{ api_secret_namespace | default(ansible_operator_meta.namespace) }}"
   set_fact:
-    device_secret: "{{ lookup('community.kubernetes.k8s', kind='secret', namespace=api_secret_namespace, resource_name=api_secret_name) }}"
+    device_secret: "{{ lookup('community.kubernetes.k8s', kind='secret', namespace=namespace, resource_name=name) }}"
 
 - name: Search for all the cluster nodes that match the criteria
   community.kubernetes.k8s_info:

@@ -14,7 +14,9 @@ rules:
       - pods
       - pods/exec
       - pods/log
-      - nodes
+      - nodes # This should only need get/list/watch
+      - services # I think this one could get away with get/list/watch or list/patch/update/watch based on what I see here: https://github.com/onesolpark/cloud-provider-vsphere/blob/908eaa8e58bb2215a0927ce3f00350365706dd8b/manifests/controller-manager/cloud-controller-manager-roles.yaml
+      - services/status # As far as I can tell this one needs patch
     verbs:
       - create
       - delete
@@ -23,6 +25,7 @@ rules:
       - patch
       - update
       - watch
+
   - apiGroups:
       - apps
     resources:
@@ -38,6 +41,7 @@ rules:
       - patch
       - update
       - watch
+
   ##
   ## Rules for opnsense.turnbros.app/v1alpha1, Kind: FirewallAlias
   ##

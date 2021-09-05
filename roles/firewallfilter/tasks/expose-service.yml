@@ -1,0 +1,45 @@
+---
+
+- set_fact:
+    service_vars: "{{ vars['__service'] }}"
+
+- name: If this is a watched service, get the facts needed to configure the FirewallFilter
+  set_fact:
+    api_secret_name: "{{ service_vars.metadata.labels['opnsense.turnbros.app/api-secret'] }}"
+    api_secret_namespace: "{{ service_vars.metadata.labels['opnsense.turnbros.app/api-secret-namespace'] | default(omit) }}"
+    service_action: "{{ service_vars.metadata.labels['opnsense.turnbros.app/filter-action'] | default(omit) }}"
+    service_direction: "{{ service_vars.metadata.labels['opnsense.turnbros.app/filter-direction'] | default(omit) }}"
+    service_interface: "{{ service_vars.metadata.labels['opnsense.turnbros.app/filter-interface'] | default(omit) }}"
+    service_source_net: "{{ service_vars.metadata.labels['opnsense.turnbros.app/filter-source-net'] | default(omit) }}"
+    service_source_port: "{{ service_vars.metadata.labels['opnsense.turnbros.app/filter-source-port'] | default(omit) }}"
+    service_destination_net: "{{ service_vars.metadata.labels['opnsense.turnbros.app/filter-destination-net'] | default(omit) }}"
+    service_enabled: "{{ service_vars.metadata.labels['opnsense.turnbros.app/filter-enabled'] | default(omit) }}"
+
+- name: Fetch the secret used to connect to the Opnsense device
+  vars:
+    name: "{{ api_secret_name }}"
+    namespace: "{{ api_secret_namespace | default(ansible_operator_meta.namespace) }}"
+  set_fact:
+    device_secret: "{{ lookup('community.kubernetes.k8s', kind='secret', namespace=namespace, resource_name=name) }}"
+
+- name: Configure the firewall filter spec from a watched Service resource
+  dylanturn.opnsense.firewall_filter:
+    api_key: "{{ device_secret.data.api_key | b64decode }}"
+    api_secret: "{{ device_secret.data.api_secret | b64decode }}"
+    api_scheme: "{{ device_secret.data.api_scheme | b64decode }}"
+    api_host: "{{ device_secret.data.api_host | b64decode }}"
+    api_port: "{{ device_secret.data.api_port | b64decode | int }}"
+    api_ca_content: "{{ device_secret.data.api_ca_content | b64decode }}"
+
+    description: "svc.{{ ansible_operator_meta.namespace }}.{{ ansible_operator_meta.name }}.{{ item['node_port'] }}.{{ item['protocol'] }}" # Determined by the service and port
+    action: "{{ service_action | default(omit) }}"
+    direction: "{{ service_direction | default(omit) }}"
+    interface: "{{ service_interface | default(omit) }}"
+    protocol: "{{ item['protocol'] }}" # Determined by the port
+    source_net: "{{ service_source_net | default(omit) }}"
+    source_port: "{{ service_source_port | default(omit) }}"
+    destination_net: "{{ service_destination_net | replace('-','_') }}"
+    destination_port: "{{ item['node_port'] }}" # Determined by the port
+    enabled: "{{ service_enabled | default(omit) }}"
+    state: "{{ state | default(omit) }}"
+  loop: "{{ ports }}"

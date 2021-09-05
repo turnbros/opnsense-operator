@@ -13,3 +13,10 @@
   kind: ClusterNodeAlias
   role: clusternodealias
 #+kubebuilder:scaffold:watch
+
+- version: v1
+  kind: Service
+  role: firewallfilter
+  selector:
+    matchLabels:
+      opnsense.turnbros.app/filter-expose: true
