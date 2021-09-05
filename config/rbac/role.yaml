@@ -14,6 +14,7 @@ rules:
       - pods
       - pods/exec
       - pods/log
+      - nodes
     verbs:
       - create
       - delete
