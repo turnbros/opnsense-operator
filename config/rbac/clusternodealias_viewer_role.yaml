@@ -1,0 +1,20 @@
+# permissions for end users to view clusternodealias.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: clusternodealias-viewer-role
+rules:
+- apiGroups:
+  - opnsense.turnbros.app
+  resources:
+  - clusternodealias
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - opnsense.turnbros.app
+  resources:
+  - clusternodealias/status
+  verbs:
+  - get

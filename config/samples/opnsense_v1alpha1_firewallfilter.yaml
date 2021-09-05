@@ -1,0 +1,21 @@
+apiVersion: opnsense.turnbros.app/v1alpha1
+kind: FirewallFilter
+metadata:
+  name: firewallfiltersample
+  annotations:
+    "ansible.sdk.operatorframework.io/verbosity": "4"
+spec:
+  api_secret_name: opnsense-device-secret
+  api_secret_namespace: default
+  action: pass
+  direction: in
+  interface:
+      - wan
+  protocol: TCP
+  source_net: any
+  source_port: 0
+  destination_net: Kubernetes_Hosts # This could be the name of a ClusterNodeAlias resource
+  destination_port: 32017
+  description: Permit internet ingress on port
+  enabled: true
+  state: present

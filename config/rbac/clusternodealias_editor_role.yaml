@@ -1,0 +1,24 @@
+# permissions for end users to edit clusternodealias.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: clusternodealias-editor-role
+rules:
+- apiGroups:
+  - opnsense.turnbros.app
+  resources:
+  - clusternodealias
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - opnsense.turnbros.app
+  resources:
+  - clusternodealias/status
+  verbs:
+  - get

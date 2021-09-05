@@ -1,0 +1,87 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: firewallfilters.opnsense.turnbros.app
+spec:
+  group: opnsense.turnbros.app
+  names:
+    kind: FirewallFilter
+    listKind: FirewallFilterList
+    plural: firewallfilters
+    singular: firewallfilter
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: FirewallFilter is the Schema for the firewallfilters API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec defines the desired state of FirewallFilter
+            type: object
+            x-kubernetes-preserve-unknown-fields: true
+          status:
+            description: Status defines the observed state of FirewallFilter
+            type: object
+            x-kubernetes-preserve-unknown-fields: true
+            properties:
+              api_secret_name:
+                type: string
+                description: The name of the secret that will contains the opnsense api key/secret/host/etc config
+              api_secret_namespace:
+                type: string
+                description: The namespace the opnsense api secret resides in
+              action:
+                type: string
+                description: asdf
+              direction:
+                type: string
+                description: asdf
+              interface:
+                type: array
+                items:
+                  type: string
+                description: The interface this rule will apply to
+                default: [ ]
+              protocol:
+                type: string
+                description: asdf
+              source_net:
+                type: string
+                description: asdf
+              source_port:
+                type: integer
+                description: asdf
+              destination_net:
+                type: string
+                description: asdf
+              destination_port:
+                type: integer
+                description: asdf
+              description:
+                type: string
+                description: asdf
+              enabled:
+                type: boolean
+                description: asdf
+              state:
+                type: string
+                description: asdf
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

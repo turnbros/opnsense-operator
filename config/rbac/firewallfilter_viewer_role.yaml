@@ -1,0 +1,20 @@
+# permissions for end users to view firewallfilters.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: firewallfilter-viewer-role
+rules:
+- apiGroups:
+  - opnsense.turnbros.app
+  resources:
+  - firewallfilters
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - opnsense.turnbros.app
+  resources:
+  - firewallfilters/status
+  verbs:
+  - get

@@ -1,0 +1,11 @@
+apiVersion: opnsense.turnbros.app/v1alpha1
+kind: ClusterNodeAlias
+metadata:
+  name: clusternodealias-sample
+spec:
+  api_secret_name: opnsense-device-secret
+  api_secret_namespace: default
+  address_type: ExternalIP
+  description: Contains an entry for each node in the cluster.
+  enabled: true
+  state: present
