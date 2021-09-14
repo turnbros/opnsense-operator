@@ -15,6 +15,7 @@
     api_host: "{{ device_secret.data.api_host | b64decode }}"
     api_port: "{{ device_secret.data.api_port | b64decode | int }}"
     api_ca_content: "{{ device_secret.data.api_ca_content | b64decode }}"
+    sequence: "{{ sequence|default(omit) }}"
     description: "svc.{{ ansible_operator_meta.namespace }}.{{ ansible_operator_meta.name }}.{{ destination_port }}"
     action: "{{ action | default(omit) }}"
     direction: "{{ direction | default(omit) }}"
