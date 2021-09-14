@@ -1,6 +1,7 @@
 # opnsense-operator
 
 ### TODO
+- Fix the CRDs, it seems I put the spec under status and have been relying heavily on `x-kubernetes-preserve-unknown-fields: true`
 - Add finalizers or something to clean up deleted resources
 - Add input validation to the FirewallFilter CRD
 - Add input validation to the ClusterNodeAlias CRD

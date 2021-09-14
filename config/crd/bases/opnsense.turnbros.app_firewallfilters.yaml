@@ -62,9 +62,11 @@ spec:
               source_net:
                 type: string
                 description: asdf
+                default: "any"
               source_port:
                 type: integer
                 description: asdf
+                default: 0
               destination_net:
                 type: string
                 description: asdf

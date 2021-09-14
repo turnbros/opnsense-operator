@@ -10,9 +10,6 @@ spec:
         runAsNonRoot: false
       containers:
       - name: manager
-        env:
-        - name: ANSIBLE_DEBUG_LOGS
-          value: "True"
         args:
         - "--config=controller_manager_config.yaml"
         volumeMounts:

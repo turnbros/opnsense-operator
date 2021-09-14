@@ -1,11 +1,6 @@
 ---
 
-- name: Expose a matched service port
-  when: vars.__service
-  import_tasks: expose-service.yml
-
 - name: Fetch the secret used to connect to the Opnsense device
-  when: ports is not defined
   vars:
     name: "{{ api_secret_name }}"
     namespace: "{{ api_secret_namespace | default(ansible_operator_meta.namespace) }}"
@@ -13,7 +8,6 @@
     device_secret: "{{ lookup('community.kubernetes.k8s', kind='secret', namespace=namespace, resource_name=name) }}"
 
 - name: Configure the firewall filter spec from a FirewallFilter resource
-  when: ports is not defined
   dylanturn.opnsense.firewall_filter:
     api_key: "{{ device_secret.data.api_key | b64decode }}"
     api_secret: "{{ device_secret.data.api_secret | b64decode }}"
@@ -21,7 +15,7 @@
     api_host: "{{ device_secret.data.api_host | b64decode }}"
     api_port: "{{ device_secret.data.api_port | b64decode | int }}"
     api_ca_content: "{{ device_secret.data.api_ca_content | b64decode }}"
-    description: "{{ svc.{{ ansible_operator_meta.namespace }}.{{ ansible_operator_meta.name }}.{{ destination_port }} | default('0') }}"
+    description: "svc.{{ ansible_operator_meta.namespace }}.{{ ansible_operator_meta.name }}.{{ destination_port }}"
     action: "{{ action | default(omit) }}"
     direction: "{{ direction | default(omit) }}"
     interface: "{{ interface | default(omit) }}"
